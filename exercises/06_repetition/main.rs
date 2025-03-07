@@ -6,6 +6,14 @@ fn print_success() {
 
 // TODO: create `if_any!()` macro.
 
+macro_rules! if_any {
+    ($($var:expr),+; $bl:block) => {
+        if $($var)||+
+            $bl 
+        
+    };
+}
+
 ////////// DO NOT CHANGE BELOW HERE /////////
 
 fn main() {

@@ -34,6 +34,12 @@ macro_rules! digit {
 ////////// DO NOT CHANGE ABOVE HERE /////////
 
 // TODO: create `number!()` macro.
+macro_rules! number {
+    ($($var:tt)+) => {
+       concat!($(digit!($var)),*)
+    
+    };
+}
 
 ////////// DO NOT CHANGE BELOW HERE /////////
 

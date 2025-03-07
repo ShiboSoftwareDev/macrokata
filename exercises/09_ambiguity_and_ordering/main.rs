@@ -3,6 +3,7 @@
 /// This enum should represent what code the user wrote exactly.
 /// Even though to a compiled program there's no difference,
 /// this will let the program tell what sort of code the user wrote.
+#[allow(dead_code)]
 #[derive(Debug)]
 enum NumberType {
     /// The user wrote a literal, positive number.
@@ -24,23 +25,23 @@ impl NumberType {
 
 // Sum together at least two expressions.
 macro_rules! sum {
-    ($($expr:expr),+ , $lastexpr:expr) => {
-        $($expr + )+ $lastexpr
+    ($first:literal, $($num:literal),* ) => {
+       $first $(+ $num)*
     }
 }
 
 macro_rules! get_number_type {
-    ( $e:expr ) => {
-        NumberType::UnknownBecauseExpr($e)
-    };
-    ( $block:block ) => {
-        NumberType::UnknownBecauseBlock($block)
+    ( -$negative:literal ) => {
+        NumberType::NegativeNumber(-$negative)
     };
     ( $positive:literal ) => {
         NumberType::PositiveNumber($positive)
     };
-    ( -$negative:literal ) => {
-        NumberType::NegativeNumber(-$negative)
+    ( $block:block ) => {
+        NumberType::UnknownBecauseBlock($block)
+    };
+    ( $e:expr ) => {
+        NumberType::UnknownBecauseExpr($e)
     };
 }
 
